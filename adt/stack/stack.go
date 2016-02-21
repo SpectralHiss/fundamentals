@@ -14,6 +14,9 @@ func New(capacity int) SimpleStack {
 }
 
 func (stack *SimpleStack) Push(item interface{}) error {
+	if stack.size == len(stack.content) {
+		return fmt.Errorf("cannot push: stack is full")
+	}
 	stack.content = prepend(stack.content, item)
 	stack.size++
 	return nil
@@ -24,8 +27,9 @@ func (stack *SimpleStack) Pop() (interface{}, error) {
 	if stack.size == 0 {
 		return 0, fmt.Errorf("empty stack popped")
 	}
-
-	return stack.content[0], nil
+	ret := stack.content[0]
+	stack.content = stack.content[1:]
+	return ret, nil
 }
 
 func prepend(slice []interface{}, elem interface{}) []interface{} {
