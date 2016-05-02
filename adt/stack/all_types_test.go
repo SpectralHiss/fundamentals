@@ -1,33 +1,16 @@
 package stack_test
 
 import (
-	"github.com/spectreOfAbsorbance/ADTalGOstudy/adt/stack"
+	"github.com/spectreOfAbsorbance/fundamentals/adt/helpers"
+	"github.com/spectreOfAbsorbance/fundamentals/adt/stack"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
 
-func nonTrivialMap() map[int]map[interface{}]interface{} {
-	return map[int]map[interface{}]interface{}{
-		3: map[interface{}]interface{}{
-			"aluminium": "neuro-toxic poison",
-			33:          "spies",
-		},
-	}
-}
-
-func channel() chan bool {
-	c := make(chan bool, 10)
-	return c
-}
-func array() [4]int {
-	return [...]int{1, 2, 3, 4}
-}
-
 var _ = Describe("checking that our stack can handle combinations of types", func() {
-	manyTypes := []interface{}{
-		0, "1", complex(10, 5), float64(19.44443), nonTrivialMap(), channel(), array(),
-	}
+	manyTypes := helpers.ManyTypes()
+
 	var simplestack stack.SimpleStack
 	BeforeEach(func() {
 		simplestack = stack.New(10)

@@ -1,4 +1,4 @@
-package ADTalGOstudy_test
+package set_test
 
 import (
 	. "github.com/onsi/ginkgo"
@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-func TestADTalGOstudy(t *testing.T) {
+func TestSet(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "ADTalGOstudy Suite")
+	RunSpecs(t, "Set Suite")
 }

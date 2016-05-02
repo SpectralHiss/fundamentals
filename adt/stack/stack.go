@@ -33,11 +33,16 @@ func (stack *SimpleStack) Pop() (interface{}, error) {
 }
 
 func prepend(slice []interface{}, elem interface{}) []interface{} {
-	tempSlice := make([]interface{}, cap(slice))
+
+	if cap(slice) == 0 {
+		return []interface{}{elem}
+	}
+	tempSlice := make([]interface{}, cap(slice)+1)
 	tempSlice[0] = elem
 
-	for index, elem := range slice[0 : len(slice)-1] {
+	for index, elem := range slice[0:len(slice)] {
 		tempSlice[index+1] = elem
 	}
+
 	return tempSlice
 }
