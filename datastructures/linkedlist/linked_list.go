@@ -1,30 +1,40 @@
 package linkedlist
 
-type LinkedList struct {
-	next *LinkedList
+// import "fmt"
+
+type LinkedListNode struct {
+	next *LinkedListNode
 	curr *interface{}
 }
 
-func New() *LinkedList {
-	return &LinkedList{
+type LinkedList interface {
+	Add(interface{})
+	AddMany(...interface{})
+	DeleteAt(int)
+	GetIndeces(interface{}) []int
+	First() interface{}
+	Next() interface{}
+	Last() interface{}
+}
+
+func New() *LinkedListNode {
+	return &LinkedListNode{
 		next: nil,
 		curr: nil,
 	}
 }
 
-// func (list *LinkedList) AddMany(elems ...interface{}) {
-// 	if len(elems) == 1 {
-// 		list.Add(elems)
-// 	} else {
-// 		list.Add(elems[0])
-// 		fmt.Printf("%#v", elems[1:])
-// 		list.AddMany(elems[1:len(elems)]...)
+func (list *LinkedListNode) AddMany(elems ...interface{}) {
+	if len(elems) == 1 {
+		list.Add(elems[0])
+	} else {
+		list.Add(elems[0])
+		list.AddMany(elems[1:len(elems)]...)
+	}
+}
 
-// 	}
-// }
-
-func (list *LinkedList) Add(elem interface{}) {
-	newlist := LinkedList{
+func (list *LinkedListNode) Add(elem interface{}) {
+	newlist := LinkedListNode{
 		next: nil,
 		curr: &elem,
 	}
@@ -36,41 +46,70 @@ func (list *LinkedList) Add(elem interface{}) {
 	}
 }
 
-//TODO: finish!
-func (list *LinkedList) getIndeces(elem interface{}) []int {
+func (list *LinkedListNode) DeleteAt(index int) {
+	if index == 0 {
+		*list = *list.next
+	} else {
+		cursor := 0
+		currList := list
+		for {
+			if cursor+1 == index {
+				// insertion poin t
+				curr := currList.next
+
+				*currList.next = *curr.next
+				return
+			}
+			cursor += 1
+			currList = currList.next
+		}
+
+	}
+
+}
+
+func (list *LinkedListNode) GetIndeces(elem interface{}) []int {
 	var positions []int
 	count := 0
 
-	if list.curr == elem {
-		positions = append(positions, count)
-	}
+	currList := list
 
+	for {
+		if *currList.curr == elem {
+			positions = append(positions, count)
+		}
+
+		if currList.next == nil {
+			break
+		}
+		currList = currList.next
+		count++
+	}
 	return positions
 }
 
-func (list *LinkedList) lastlist() *LinkedList {
-	currList := list.next
+func (list *LinkedListNode) lastlist() *LinkedListNode {
+	currList := list
 	for {
-		if currList == nil {
-			return list
-		} else if currList.next == nil {
+		if currList.next == nil {
 			return currList
 		}
-		currList = list.next
+		currList = currList.next
 	}
 }
-func (list *LinkedList) Last() interface{} {
+
+func (list *LinkedListNode) Last() interface{} {
 	return *(list.lastlist().curr)
 }
 
-func (list *LinkedList) First() interface{} {
+func (list *LinkedListNode) First() interface{} {
 	return *list.curr
 }
 
-func (list *LinkedList) Next() interface{} {
+func (list *LinkedListNode) Next() interface{} {
 	return *list.next.curr
 }
 
-func (list *LinkedList) NextElem() interface{} {
+func (list *LinkedListNode) NextElem() interface{} {
 	return *((*list.next).curr)
 }
