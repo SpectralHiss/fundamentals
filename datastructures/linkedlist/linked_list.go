@@ -54,10 +54,13 @@ func (list *LinkedListNode) DeleteAt(index int) {
 		currList := list
 		for {
 			if cursor+1 == index {
-				// insertion poin t
+				// insertion point
 				curr := currList.next
-
-				*currList.next = *curr.next
+				if curr.next == nil { // case of deletion of last elem
+					currList.next = nil
+				} else {
+					*currList.next = *curr.next
+				}
 				return
 			}
 			cursor += 1

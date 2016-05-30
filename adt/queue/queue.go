@@ -13,16 +13,20 @@ type Simplequeue struct {
 }
 
 func New() Simplequeue {
-	return Simplequeue{}
+	return Simplequeue{
+		lnklist: llist.New(),
+	}
 }
 
 func (s *Simplequeue) Enqueue(elem interface{}) {
 	s.lnklist.Add(elem)
 }
 
-// TODO: actually dequeue, pass pending test
 func (s *Simplequeue) Dequeue() interface{} {
-	return s.lnklist.First()
+	l := s.lnklist
+	ret := l.First()
+	l.DeleteAt(0)
+	return ret
 }
 
 func (s *Simplequeue) Peek() interface{} {

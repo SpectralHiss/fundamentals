@@ -82,7 +82,7 @@ var _ = Describe("LinkedList", func() {
 			})
 		})
 
-		PContext("when the third element is deleted", func() {
+		Context("when the third element is deleted", func() {
 			BeforeEach(func() {
 				list.DeleteAt(2)
 			})
