@@ -1,7 +1,7 @@
 package set_test
 
 import (
-	"github.com/spectreOfAbsorbance/fundamentals/adt/set"
+	"github.com/parallelKiller/fundamentals/adt/set"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"

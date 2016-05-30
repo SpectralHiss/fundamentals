@@ -3,7 +3,7 @@ package sort_test
 import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"github.com/spectreOfAbsorbance/fundamentals/algos/sort"
+	"github.com/parallelKiller/fundamentals/algos/sort"
 )
 
 var _ = Describe("Sort", func() {

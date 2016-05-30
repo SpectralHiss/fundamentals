@@ -1,7 +1,7 @@
 package stack_test
 
 import (
-	"github.com/spectreOfAbsorbance/fundamentals/adt/stack"
+	"github.com/parallelKiller/fundamentals/adt/stack"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"

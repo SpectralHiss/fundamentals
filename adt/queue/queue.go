@@ -1,6 +1,6 @@
 package queue
 
-import llist "github.com/spectreOfAbsorbance/fundamentals/datastructures/linkedlist"
+import llist "github.com/parallelKiller/fundamentals/datastructures/linkedlist"
 
 type Queue interface {
 	Enqueue(interface{})

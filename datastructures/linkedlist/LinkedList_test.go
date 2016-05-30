@@ -1,7 +1,7 @@
 package linkedlist_test
 
 import (
-	llist "github.com/spectreOfAbsorbance/fundamentals/datastructures/linkedlist"
+	llist "github.com/parallelKiller/fundamentals/datastructures/linkedlist"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"

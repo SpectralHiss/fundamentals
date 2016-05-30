@@ -20,7 +20,6 @@ func (stack *SimpleStack) Push(item interface{}) error {
 	stack.content = prepend(stack.content, item)
 	stack.size++
 	return nil
-
 }
 
 func (stack *SimpleStack) Pop() (interface{}, error) {
