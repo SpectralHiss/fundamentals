@@ -36,10 +36,10 @@ func prepend(slice []interface{}, elem interface{}) []interface{} {
 	if cap(slice) == 0 {
 		return []interface{}{elem}
 	}
-	tempSlice := make([]interface{}, cap(slice)+1)
+	tempSlice := make([]interface{}, cap(slice))
 	tempSlice[0] = elem
 
-	for index, elem := range slice[0:len(slice)] {
+	for index, elem := range slice[0 : len(slice)-1] {
 		tempSlice[index+1] = elem
 	}
 
