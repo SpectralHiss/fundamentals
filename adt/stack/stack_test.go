@@ -64,8 +64,9 @@ var _ = Describe("Stack datastructure tests", func() {
 				})
 			})
 		})
-		// broke after changing prepend ..
+
 		Context("when the stack is full", func() {
+
 			BeforeEach(func() {
 				for i := 0; i <= 10; i++ {
 					simplestack.Push(i)
