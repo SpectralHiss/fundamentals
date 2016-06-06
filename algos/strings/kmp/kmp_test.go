@@ -11,10 +11,12 @@ import (
 
 var _ = Describe("KMP exact string search", func() {
 	var (
-		corpus    string
-		searcher  kmp.Searcher
-		present   bool
-		positions []int
+		corpus          string
+		searcher        kmp.Searcher
+		present         bool
+		positions       []int
+		pattern         string      = "Shaw"
+		default_options kmp.Options = kmp.Options{Debug: false}
 	)
 
 	BeforeEach(func() {
@@ -26,7 +28,7 @@ var _ = Describe("KMP exact string search", func() {
 
 		corpus = string(corpusBytes)
 		searcher = kmp.New()
-		present, positions = searcher.Search("Shaw", corpus)
+		present, positions = searcher.Search(pattern, corpus, default_options)
 	})
 
 	It("finds the location of a substring, if exists", func() {

@@ -1,35 +1,54 @@
 package kmp
 
+import (
+	"fmt"
+	"math"
+)
+
 type Searcher interface {
-	Search(pattern string, text string) (present bool, positionsInText []int)
+	Search(pattern string, text string, options Options) (present bool, positionsInText []int)
 }
 
 type kmpSearch struct{}
+
+type Options struct {
+	Debug         bool
+	caseSensitive bool
+}
 
 func New() Searcher {
 	return kmpSearch{}
 }
 
-func (kmp kmpSearch) Search(pattern string, text string) (bool, []int) {
+func (kmp kmpSearch) Search(pattern string, text string, options Options) (bool, []int) {
 
 	π := buildPi(pattern) // pi unicode character is U+03C0
 
+	allMatches := []int{}
+	hasMatches := false
+
 	matched := 0
-	for cursor := 0; cursor < len(text); cursor++ {
+	for cursor := 0; cursor < len(text); {
 		if matched == len(pattern) {
-			return true, []int{cursor}
+			allMatches = append(allMatches, cursor)
+			matched = 0
+			hasMatches = true
 		}
 
 		if text[cursor] == pattern[matched] {
 			matched++
+			cursor++
 		} else {
-			matched = 0
-			cursor += len(pattern) - π[matched]
+			matched = π[matched]
+			cursor += 1 + π[matched]
 		}
-
 	}
 
-	return false, []int{}
+	if options.Debug {
+		debug_output(allMatches, text, pattern)
+	}
+
+	return hasMatches, allMatches
 }
 
 func buildPi(pattern string) []int {
@@ -48,4 +67,14 @@ func buildPi(pattern string) []int {
 	}
 
 	return π
+}
+
+func debug_output(positions []int, corpus string, pattern string) {
+	for _, position := range positions {
+		min := int(math.Max(0, float64(position-100)))
+		max := int(math.Min(float64(len(corpus)-1), float64(position+100)))
+
+		fmt.Printf("\n !!! %pattern is found here:%#v", pattern, (corpus[min:max]))
+
+	}
 }
