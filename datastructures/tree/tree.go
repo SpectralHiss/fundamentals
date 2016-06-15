@@ -9,4 +9,6 @@ type Tree interface {
 	Add(node Node)
 	Remove(node Node)
 	Flatten() []Node
+	Leaf() bool
+	Height() int
 }
