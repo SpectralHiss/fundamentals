@@ -14,7 +14,7 @@ func QuickSort(slice []int) []int {
 		if elem < midPoint {
 			left = append(left, elem)
 		} else if elem == midPoint {
-			right = prepend(right, elem)
+			right = prependAndGrow(right, elem)
 		} else {
 			right = append(right, elem)
 		}
@@ -31,7 +31,7 @@ func QuickSort(slice []int) []int {
 	return append(QuickSort(left), QuickSort(right)...)
 }
 
-func prepend(slice []int, elem int) []int {
+func prependAndGrow(slice []int, elem int) []int {
 	if cap(slice) == 0 {
 		return []int{elem}
 	}
