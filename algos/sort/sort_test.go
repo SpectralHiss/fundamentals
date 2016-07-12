@@ -12,8 +12,8 @@ var _ = Describe("Sort", func() {
 		var sorted []int
 		var unsorted []int
 		BeforeEach(func() {
-			unsorted = []int{0, 39, -421, 01, 9000, 44, -44}
-			sorted = []int{-421, -44, 0, 1, 39, 44, 9000}
+			unsorted = []int{0, 0, 39, -421, 01, 9000, 44, -44}
+			sorted = []int{-421, -44, 0, 0, 1, 39, 44, 9000}
 		})
 
 		It("sorts the slice", func() {
