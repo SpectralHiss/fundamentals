@@ -1,9 +1,11 @@
 package bst
 
 import (
+	//"fmt"
+	"github.com/parallelKiller/fundamentals/datastructures/tree"
 	"math"
 
-	"github.com/parallelKiller/fundamentals/datastructures/tree"
+	"github.com/davecgh/go-spew/spew"
 )
 
 type binarySTree struct {
@@ -114,18 +116,48 @@ func (b *binarySTree) Flatten() []tree.Node {
 
 func (b *binarySTree) Remove(node tree.Node) {
 
-	elementTreeHead := b.Search(node)
+	elementTreeHead := b.Search(node).(*binarySTree)
 
 	if elementTreeHead.Leaf() {
-		elementTreeHead = nil
-	} else if elementTreeHead.(*binarySTree).Left() == (*binarySTree)(nil) {
-		elementTreeHead = elementTreeHead.Right()
-	} else if elementTreeHead.(*binarySTree).Right() == (*binarySTree)(nil) {
-		elementTreeHead = elementTreeHead.Left()
+		parent := b.FindParent(elementTreeHead)
+		if parent.left == elementTreeHead {
+			b.left = nil
+		} else {
+			b.right = nil
+		}
+	} else if elementTreeHead.Left() == (*binarySTree)(nil) {
+		*elementTreeHead = *elementTreeHead.Right().(*binarySTree)
+	} else if elementTreeHead.Right() == (*binarySTree)(nil) {
+		spew.Dump(elementTreeHead)
+		*elementTreeHead = *elementTreeHead.Left().(*binarySTree)
 	} else {
 
 	}
 
+}
+
+// this allows recursion to work it's course smoothly
+func findParentRec(tree *binarySTree, elem *binarySTree, parent *binarySTree) *binarySTree {
+	if tree == nil {
+		return nil
+	}
+
+	println("case A")
+
+	if tree.Head().K == elem.Head().K {
+		println("Site B")
+		return parent
+	} else if tree.Head().K < elem.Head().K {
+		println("Site C")
+		return findParentRec(tree.Left().(*binarySTree), elem, tree)
+	} else {
+		println("site B")
+		return findParentRec(tree.Right().(*binarySTree), elem, tree)
+	}
+}
+
+func (b *binarySTree) FindParent(elem *binarySTree) *binarySTree {
+	return findParentRec(b, elem, nil)
 }
 
 func (b *binarySTree) Search(node tree.Node) BST {
