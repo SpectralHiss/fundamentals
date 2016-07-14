@@ -5,11 +5,11 @@ import (
 	"math/rand"
 	"time"
 
+	"github.com/SpectralHiss/fundamentals/algos/sort"
+	"github.com/SpectralHiss/fundamentals/datastructures/bst"
+	"github.com/SpectralHiss/fundamentals/datastructures/tree"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"github.com/parallelKiller/fundamentals/algos/sort"
-	"github.com/parallelKiller/fundamentals/datastructures/bst"
-	"github.com/parallelKiller/fundamentals/datastructures/tree"
 )
 
 // this tree does not balance and does not permit dupes.
@@ -107,6 +107,23 @@ var _ = Describe("Bst", func() {
 			})
 		})
 
+		Context("when the element deleted is the head node", func() {
+			BeforeEach(func() {
+				cleverTree.Remove(head)
+				weights = getWeights(cleverTree.Flatten())
+			})
+
+			It("deletes element properly", func() {
+				Expect(weights).NotTo(ContainElement(head))
+
+				itContains(weights, []tree.Node{
+					Peugeot, Judas, Glutton, Dalmatiens, Gluten,
+				})
+
+				Expect(weights).To(Equal(sort.QuickSort(weights)))
+			})
+		})
+
 		Context("when the element deleted has no right subtree", func() {
 			BeforeEach(func() {
 				cleverTree.Remove(Peugeot)
@@ -136,6 +153,23 @@ var _ = Describe("Bst", func() {
 
 				itContains(weights, []tree.Node{
 					Peugeot, Judas, Glutton, Gluten,
+				})
+
+				Expect(weights).To(Equal(sort.QuickSort(weights)))
+			})
+		})
+
+		Context("when the element deleted has left and right subtree", func() {
+			BeforeEach(func() {
+				cleverTree.Remove(Judas)
+				weights = getWeights(cleverTree.Flatten())
+			})
+
+			It("deletes element properly", func() {
+				Expect(weights).NotTo(ContainElement(Judas.K))
+
+				itContains(weights, []tree.Node{
+					Peugeot, Dalmatiens, Glutton, Gluten,
 				})
 
 				Expect(weights).To(Equal(sort.QuickSort(weights)))

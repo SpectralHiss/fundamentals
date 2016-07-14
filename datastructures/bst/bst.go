@@ -1,11 +1,8 @@
 package bst
 
 import (
-	//"fmt"
-	"github.com/parallelKiller/fundamentals/datastructures/tree"
+	"github.com/SpectralHiss/fundamentals/datastructures/tree"
 	"math"
-
-	"github.com/davecgh/go-spew/spew"
 )
 
 type binarySTree struct {
@@ -120,15 +117,19 @@ func (b *binarySTree) Remove(node tree.Node) {
 
 	if elementTreeHead.Leaf() {
 		parent := b.FindParent(elementTreeHead)
-		if parent.left == elementTreeHead {
-			b.left = nil
+		if parent == nil {
+			// TODO: check case, is it meaningful? singleton tree?
+			b = nil
+		}
+
+		if parent.left.head == elementTreeHead.Head() {
+			parent.left = nil
 		} else {
-			b.right = nil
+			parent.right = nil
 		}
 	} else if elementTreeHead.Left() == (*binarySTree)(nil) {
 		*elementTreeHead = *elementTreeHead.Right().(*binarySTree)
 	} else if elementTreeHead.Right() == (*binarySTree)(nil) {
-		spew.Dump(elementTreeHead)
 		*elementTreeHead = *elementTreeHead.Left().(*binarySTree)
 	} else {
 
@@ -136,23 +137,25 @@ func (b *binarySTree) Remove(node tree.Node) {
 
 }
 
-// this allows recursion to work it's course smoothly
+// this allows recursion to work its course smoothly
 func findParentRec(tree *binarySTree, elem *binarySTree, parent *binarySTree) *binarySTree {
-	if tree == nil {
-		return nil
-	}
-
-	println("case A")
 
 	if tree.Head().K == elem.Head().K {
-		println("Site B")
 		return parent
-	} else if tree.Head().K < elem.Head().K {
-		println("Site C")
-		return findParentRec(tree.Left().(*binarySTree), elem, tree)
+	} else if tree.Head().K > elem.Head().K {
+
+		if tree.Left().(*binarySTree) != nil {
+			return findParentRec(tree.Left().(*binarySTree), elem, tree)
+		} else {
+			return nil
+		}
+
 	} else {
-		println("site B")
-		return findParentRec(tree.Right().(*binarySTree), elem, tree)
+		if tree.Right().(*binarySTree) != (*binarySTree)(nil) {
+			return findParentRec(tree.Right().(*binarySTree), elem, tree)
+		} else {
+			return nil
+		}
 	}
 }
 

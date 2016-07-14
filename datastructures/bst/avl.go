@@ -1,6 +1,6 @@
 package bst
 
-import "github.com/parallelKiller/fundamentals/datastructures/tree"
+import "github.com/SpectralHiss/fundamentals/datastructures/tree"
 
 type avlTree struct {
 	binarySTree

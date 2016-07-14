@@ -1,8 +1,8 @@
 package stack_test
 
 import (
-	"github.com/parallelKiller/fundamentals/adt/helpers"
-	"github.com/parallelKiller/fundamentals/adt/stack"
+	"github.com/SpectralHiss/fundamentals/adt/helpers"
+	"github.com/SpectralHiss/fundamentals/adt/stack"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"

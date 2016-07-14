@@ -1,7 +1,7 @@
 package queue_test
 
 import (
-	queue "github.com/parallelKiller/fundamentals/adt/queue"
+	queue "github.com/SpectralHiss/fundamentals/adt/queue"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"

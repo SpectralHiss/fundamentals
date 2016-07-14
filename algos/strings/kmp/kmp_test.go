@@ -6,7 +6,7 @@ import (
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"github.com/parallelKiller/fundamentals/algos/strings/kmp"
+	"github.com/SpectralHiss/fundamentals/algos/strings/kmp"
 )
 
 var _ = Describe("KMP exact string search", func() {
