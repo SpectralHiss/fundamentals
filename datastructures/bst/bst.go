@@ -1,6 +1,7 @@
 package bst
 
 import (
+	//"fmt"
 	"github.com/SpectralHiss/fundamentals/datastructures/tree"
 	"math"
 )
@@ -116,10 +117,18 @@ func (b *binarySTree) Remove(node tree.Node) {
 	elementTreeHead := b.Search(node).(*binarySTree)
 
 	if elementTreeHead.Leaf() {
+
+		// it is important not to have dupes , or findParent approach fails..
+
 		parent := b.FindParent(elementTreeHead)
 		if parent == nil {
-			// TODO: check case, is it meaningful? singleton tree?
 			b = nil
+		}
+
+		if parent.left == nil {
+			parent.right = nil
+		} else if parent.right == nil {
+			parent.left = nil
 		}
 
 		if parent.left.head == elementTreeHead.Head() {
@@ -132,9 +141,53 @@ func (b *binarySTree) Remove(node tree.Node) {
 	} else if elementTreeHead.Right() == (*binarySTree)(nil) {
 		*elementTreeHead = *elementTreeHead.Left().(*binarySTree)
 	} else {
+		// general idea is to swap node to be deleted with
+		// the rightmost of the left sub tree or leftmost of right sub-tree
+		// because that element keeps the BST constraint
+		// there is a lot of plumbing in algorithm to deal with properly doing the swapping
 
+		// it is important not to have dupes , or findParent approach fails..
+
+		rightMost := elementTreeHead.Left().(*binarySTree).RightMost()
+		parentRightMost := b.FindParent(rightMost)
+
+		if parentRightMost == nil { // 'HEAD' complex case
+			*elementTreeHead = binarySTree{
+				head:  rightMost.Head(),
+				left:  elementTreeHead.left,
+				right: elementTreeHead.right,
+			}
+
+			return
+		}
+
+		if parentRightMost.left == nil { // i
+			parentRightMost.right = nil
+		} else if parentRightMost.right == nil {
+			parentRightMost.left = nil
+		}
+
+		if parentRightMost.left.head == rightMost.Head() {
+			parentRightMost.left = nil
+		} else {
+			parentRightMost.right = nil
+		}
+
+		*elementTreeHead = binarySTree{
+			head:  rightMost.Head(),
+			left:  elementTreeHead.left,
+			right: elementTreeHead.right,
+		}
 	}
 
+}
+
+func (b *binarySTree) RightMost() *binarySTree {
+	if b.right == nil {
+		return b
+	} else {
+		return b.right.RightMost()
+	}
 }
 
 // this allows recursion to work its course smoothly
