@@ -110,12 +110,12 @@ var _ = Describe("Bst", func() {
 		FContext("when the element deleted is the head node", func() {
 
 			BeforeEach(func() {
-				fmt.Printf("%#v", getWeights(cleverTree.Flatten()))
 				cleverTree.Remove(head)
 				weights = getWeights(cleverTree.Flatten())
 			})
 
 			It("deletes element properly", func() {
+				fmt.Printf("%#v", weights)
 				Expect(weights).NotTo(ContainElement(head))
 
 				itContains(weights, []tree.Node{
@@ -184,8 +184,8 @@ func addRandBunch(cleverTree bst.BST) {
 	limit := 10
 	randGen := rand.New(rand.NewSource(int64(time.Now().Nanosecond())))
 
-	sieve := make([]bool,100)
-	
+	sieve := make([]bool, 100)
+
 	for {
 		if limit <= 0 {
 			break
@@ -194,7 +194,7 @@ func addRandBunch(cleverTree bst.BST) {
 		var key int
 		// this is to avoid dupes
 		for {
-		key = int(randGen.Float64() * 100)
+			key = int(randGen.Float64() * 100)
 
 			if !sieve[key] {
 				sieve[key] = true
@@ -202,7 +202,7 @@ func addRandBunch(cleverTree bst.BST) {
 			}
 		}
 
-		cleverTree.Add(tree.Node{K: key , V: fmt.Sprintf("i:%d", limit)})
+		cleverTree.Add(tree.Node{K: key, V: fmt.Sprintf("i:%d", limit)})
 		limit--
 	}
 }

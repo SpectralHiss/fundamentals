@@ -165,9 +165,7 @@ func (b *binarySTree) Remove(node tree.Node) {
 			parentRightMost.right = nil
 		} else if parentRightMost.right == nil {
 			parentRightMost.left = nil
-		}
-
-		if parentRightMost.left.head == rightMost.Head() {
+		} else if parentRightMost.left.head == rightMost.Head() {
 			parentRightMost.left = nil
 		} else {
 			parentRightMost.right = nil
