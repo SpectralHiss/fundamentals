@@ -34,7 +34,7 @@ func (graph DWGraph) AdjList(node int) []Edge {
 	var adj []Edge
 	for node, distance := range graph.matrix[node] {
 		if distance != 0 {
-			adj = append(adj, Edge{EndNode: elem, Distance: distance})
+			adj = append(adj, Edge{EndNode: node, Distance: distance})
 		}
 	}
 	return adj
