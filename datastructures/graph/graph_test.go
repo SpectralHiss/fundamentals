@@ -26,4 +26,12 @@ var _ = Describe("Graph", func() {
 			{EndNode: 4, Distance: 1}, {EndNode: 5, Distance: 7},
 		}))
 	})
+
+	Context("when a new edge is added to the graph", func() {
+		BeforeEach(func() {
+			newEdge := graph.Edge{EndNode: 4, Distance: 3}
+			g.AddEdge(5, newEdge)
+			Expect(g.AdjList(5)).To(ContainElement(newEdge))
+		})
+	})
 })

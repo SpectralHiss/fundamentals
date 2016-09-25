@@ -12,6 +12,7 @@ type DWGraph struct {
 }
 
 type Graph interface {
+	AddEdge(int, Edge)
 	AdjList(node int) []Edge
 	Matrix() [][]int
 }

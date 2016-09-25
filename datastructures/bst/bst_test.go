@@ -115,7 +115,6 @@ var _ = Describe("Bst", func() {
 			})
 
 			It("deletes element properly", func() {
-				fmt.Printf("%#v", weights)
 				Expect(weights).NotTo(ContainElement(head))
 
 				itContains(weights, []tree.Node{
