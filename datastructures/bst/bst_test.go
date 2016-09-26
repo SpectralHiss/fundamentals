@@ -107,7 +107,7 @@ var _ = Describe("Bst", func() {
 			})
 		})
 
-		FContext("when the element deleted is the head node", func() {
+		Context("when the element deleted is the head node", func() {
 
 			BeforeEach(func() {
 				cleverTree.Remove(head)

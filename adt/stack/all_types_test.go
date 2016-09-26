@@ -1,8 +1,8 @@
 package stack_test
 
 import (
-	"github.com/SpectralHiss/fundamentals/adt/helpers"
 	"github.com/SpectralHiss/fundamentals/adt/stack"
+	"github.com/SpectralHiss/fundamentals/helpers"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"

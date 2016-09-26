@@ -1,5 +1,7 @@
 package sort
 
+import "github.com/SpectralHiss/fundamentals/helpers"
+
 func QuickSort(slice []int) []int {
 	if len(slice) == 1 {
 		return slice
@@ -15,7 +17,7 @@ func QuickSort(slice []int) []int {
 		if elem < midPoint {
 			left = append(left, elem)
 		} else if elem == midPoint && index != midIndex {
-			right = prependAndGrow(right, elem)
+			right = helpers.PrependAndGrow(right, elem)
 		} else if elem > midPoint {
 			right = append(right, elem)
 		}
@@ -31,19 +33,4 @@ func QuickSort(slice []int) []int {
 
 	left = append(QuickSort(left), midPoint)
 	return append(left, QuickSort(right)...)
-}
-
-func prependAndGrow(slice []int, elem int) []int {
-	if cap(slice) == 0 {
-		return []int{elem}
-	}
-	tempSlice := make([]int, cap(slice)+1)
-	tempSlice[0] = elem
-
-	for index, elem := range slice[0:] {
-		tempSlice[index+1] = elem
-	}
-	//	tempSlice = append(tempSlice, slice[0:len(slice)-1]
-
-	return tempSlice
 }
