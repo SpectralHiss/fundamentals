@@ -7,7 +7,7 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-var _ = PDescribe("Dijikstra", func() {
+var _ = Describe("Dijikstra", func() {
 	var directedG graph.Graph
 
 	BeforeEach(func() {
@@ -22,9 +22,9 @@ var _ = PDescribe("Dijikstra", func() {
 	})
 
 	It("computes the shortest path between node 0 and 6", func() {
-		path := dijikstra.ShortestPath(directedG, 0)
+		nodePaths := dijikstra.ShortestPath(directedG, 0)
 
-		Expect(path).To(Equal(dijikstra.Path{0, 1, 3, 5, 6}))
+		Expect(nodePaths.ToPath(6)).To(Equal(dijikstra.Path{0, 1, 3, 5, 6}))
 	})
 
 })

@@ -14,21 +14,23 @@ type NodeDesc struct {
 
 type NodeDescs []NodeDesc
 
-func (descs NodeDescs) ToPath(endNode int) {
+func (descs NodeDescs) ToPath(endNode int) Path {
 	path := Path{}
 
 	var curNode int
 	for curNode = endNode; curNode != -1; curNode = descs[curNode].Pred {
 		path = helpers.PrependAndGrow(path, curNode)
 	}
+
+	return path
 }
 
 func initialise() {
 
 }
 
-func ShortestPath(graph graph.Graph, start int) Path {
-	NodeDescs := make([]int, len(graph.AdjList(0)))
+func ShortestPath(graph graph.Graph, start int) NodeDescs {
+	NodeDescs := make(NodeDescs, len(graph.AdjList(0)))
 
 	return NodeDescs
 }
