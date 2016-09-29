@@ -20,7 +20,7 @@ var _ = Describe("Min Heap", func() {
 		}
 	})
 
-	It("returns the minimum weight element", func() {
+	It("allows peeking to the minimum weight element", func() {
 		Expect(minHeap.Min().Id).To(Equal(6))
 
 	})
@@ -28,6 +28,15 @@ var _ = Describe("Min Heap", func() {
 	It("keeps the min Heap constraint", func() {
 		Expect(MinHeapConstraintRec(1, minHeap.(*heap.ArrMinHeap))).To(BeTrue())
 	})
+
+	It("removes the minimum element on extract min, keeping the constraint", func() {
+		//	fmt.Printf("%#v", minHeap)
+		minElem := minHeap.ExtractMin()
+		Expect(minElem.Id).To(Equal(6))
+		Expect(minHeap.Min().Id).NotTo(Equal(6))
+		Expect(MinHeapConstraintRec(1, minHeap.(*heap.ArrMinHeap))).To(BeTrue())
+	})
+
 })
 
 func MinHeapConstraintRec(i int, minh *heap.ArrMinHeap) bool {
