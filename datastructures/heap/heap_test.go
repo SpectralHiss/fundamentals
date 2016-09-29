@@ -8,12 +8,15 @@ import (
 )
 
 var _ = Describe("Min Heap", func() {
+
+	// we had an error case relating to full complete vs coemplete length handling
+	// hence TODO: make context for each type of tree, with shared example
 	var minHeap heap.MinHeap
 
 	BeforeEach(func() {
 		minHeap = heap.NewMinHeap()
 
-		testEntries := []int{4, -2, 13, 100, 423, -1, -3000}
+		testEntries := []int{4, -2, 13, 100, 100, -2, 423, -1, -3000}
 
 		for index := 0; index < len(testEntries); index++ {
 			minHeap.Insert(heap.Entry{W: testEntries[index], Id: index})
@@ -21,7 +24,7 @@ var _ = Describe("Min Heap", func() {
 	})
 
 	It("allows peeking to the minimum weight element", func() {
-		Expect(minHeap.Min().Id).To(Equal(6))
+		Expect(minHeap.Min().Id).To(Equal(8))
 
 	})
 
@@ -32,8 +35,8 @@ var _ = Describe("Min Heap", func() {
 	It("removes the minimum element on extract min, keeping the constraint", func() {
 		//	fmt.Printf("%#v", minHeap)
 		minElem := minHeap.ExtractMin()
-		Expect(minElem.Id).To(Equal(6))
-		Expect(minHeap.Min().Id).NotTo(Equal(6))
+		Expect(minElem.Id).To(Equal(8))
+		Expect(minHeap.Min().Id).NotTo(Equal(8))
 		Expect(MinHeapConstraintRec(1, minHeap.(*heap.ArrMinHeap))).To(BeTrue())
 	})
 

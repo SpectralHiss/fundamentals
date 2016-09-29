@@ -10,6 +10,7 @@ type MinHeap interface {
 	Remove(id int)
 	Insert(Entry)
 	ExtractMin() Entry
+	Scan(id int) (int, Entry)
 }
 
 type ArrMinHeap []Entry
@@ -48,7 +49,7 @@ func (minh *ArrMinHeap) flyUp(index int) {
 
 func (minh *ArrMinHeap) Remove(id int) {
 	heap := (*minh)
-	pos := minh.scan(id)
+	pos, _ := minh.Scan(id)
 	if pos != -1 {
 		lastPos := len(*minh) - 1
 		heap[pos] = heap[lastPos]
@@ -61,7 +62,7 @@ func (minh *ArrMinHeap) Remove(id int) {
 func (minh *ArrMinHeap) sinkDown(index int) {
 	heap := (*minh)
 
-	if index > len(heap)/2 {
+	if index >= len(heap)/2 {
 		return
 	} else {
 		leftPos := 2 * index
@@ -108,13 +109,13 @@ func (minh *ArrMinHeap) swap(index1 int, index2 int) {
 	heap[index2] = temp
 }
 
-func (minh *ArrMinHeap) scan(id int) int {
+func (minh *ArrMinHeap) Scan(id int) (int, Entry) {
 	heap := (*minh)
 
 	for i := 1; i < len(heap); i++ {
 		if heap[i].Id == id {
-			return i
+			return i, heap[i]
 		}
 	}
-	return -1
+	return -1, Entry{}
 }
