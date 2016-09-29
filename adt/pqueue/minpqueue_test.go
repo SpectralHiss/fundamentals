@@ -8,8 +8,6 @@ import (
 )
 
 /*
-	Pqueue can be either a normal (max) priority queue
-	or a minimum priority queue depending on parameter to constructor
 	we needed a min-queue for dijikstra will later backfill normal tests
 	queue is storing an id for each entry
 */
@@ -17,22 +15,29 @@ import (
 var _ = Describe("minimum Priority queue ", func() {
 
 	var (
-		pq pqueue.MinPqueue
+		pq pqueue.MinPQueue
 
 		testEntries = []int{4, 2, 53, 1000, 42, -1, -3000}
 	)
 
 	BeforeEach(func() {
-		pq = pqueue.NewMinQueue(false)
+		pq = pqueue.NewMinQueue()
 
-		for i := 0; i < length(testEntries); i++ {
-
+		for i := 0; i < len(testEntries); i++ {
 			pq.Insert(testEntries[i], i)
 		}
 
 	})
 
 	It("dequeues lowest priority element first", func() {
+		Expect(pq.ExtractMin()).To(Equal(6))
+		Expect(pq.ExtractMin()).To(Equal(5))
+		Expect(pq.ExtractMin()).To(Equal(1))
+	})
+
+	It("decreases key properly", func() {
+		pq.DecreaseK(3, -3421)
+		Expect(pq.ExtractMin()).To(Equal(3))
 		Expect(pq.ExtractMin()).To(Equal(6))
 	})
 
